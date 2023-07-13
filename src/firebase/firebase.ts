@@ -34,7 +34,8 @@ export const auth = getAuth();
 
 if (DEV) {
   //The Firebase AppCheck debug token is specified in the .env.local file and is not tracked by git
-  (window as any).self.FIREBASE_APPCHECK_DEBUG_TOKEN = process.env.FIREBASE_APPCHECK_DEBUG_TOKEN;
+  console.log("Running in dev env with debug token: " + process.env.REACT_APP_FIREBASE_APPCHECK_DEBUG_TOKEN);
+  (window as any).self.FIREBASE_APPCHECK_DEBUG_TOKEN = process.env.REACT_APP_FIREBASE_APPCHECK_DEBUG_TOKEN;
   connectFunctionsEmulator(functions, "localhost", 5001);
   connectFirestoreEmulator(db, 'localhost', 8080);
   connectAuthEmulator(auth, "http://localhost:9099");
