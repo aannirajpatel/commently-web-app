@@ -5,6 +5,7 @@ import { firebasePublicUserInfoConverter } from './UserConverter';
 import { IPublicUserInfo } from '../../DTO/User/IUser';
 import { firebasePrivateUserInfoConverter } from './PrivateUserConverter';
 import { IPrivateUserInfo } from '../../DTO/User/IUserPrivate';
+import { DEV } from '../../shared/Constants';
 
 export async function signInWithGoogle() {
   try {
@@ -26,18 +27,22 @@ export async function signInWithGoogle() {
       });
     }
   } catch (err) {
-    console.log(err);
+    DEV && console.log(err);
   }
 }
 
 class UserRepository {
   public async getPublicUserInfo(uid: string): Promise<IPublicUserInfo> {
     console.log("Getting user for uid:" + uid);
-    return (await (getDoc(doc(db, `users/${uid}`).withConverter(firebasePublicUserInfoConverter)))).data()!
+    const publicUserInfo = (await (getDoc(doc(db, `users/${uid}`).withConverter(firebasePublicUserInfoConverter)))).data()!
+    DEV && console.log("Public user info: " + JSON.stringify(publicUserInfo));
+    return publicUserInfo;
   }
   public async getPrivateUserInfo(creatorUid: string): Promise<IPrivateUserInfo> {
     console.log("Getting comment creator details for creatorUid:" + creatorUid);
-    return (await (getDoc(doc(db, `users/${creatorUid}`).withConverter(firebasePrivateUserInfoConverter)))).data()!
+    const privateUserInfo = (await (getDoc(doc(db, `users/${creatorUid}`).withConverter(firebasePrivateUserInfoConverter)))).data()!
+    DEV && console.log("Private user info: " + JSON.stringify(privateUserInfo));
+    return privateUserInfo;
   }
 }
 

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import { Button, Container, Form, TextArea, TextAreaProps } from "semantic-ui-react";
+import { Button, Container } from "semantic-ui-react";
 import { IComment } from "../../DTO/Comment/IComment";
 import { ISite } from "../../DTO/Site/ISite";
 import { auth } from "../../firebase/firebase";
@@ -10,7 +10,7 @@ import { commentRepository } from "../../Repository/CommentRepository/CommentRep
 export interface ICommentFormProps {
     siteInfo: ISite;
     setComments: any;
-}
+};
 
 export const CommentForm = ({ siteInfo, setComments }: ICommentFormProps) => {
     const [user] = useAuthState(auth);
@@ -33,13 +33,13 @@ export const CommentForm = ({ siteInfo, setComments }: ICommentFormProps) => {
     }, [siteInfo, setComments, text, user, loading]);
 
     const handleSetText = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+        event.preventDefault();
         setText(event.target.value);
     }
     return (
         <Container fluid>
-            <ReactTextareaAutosize autoFocus onChange={handleSetText} style={{ width: "100%" }} />
-            {loading && <Button primary loading>Add comment</Button>}
-            {!loading && <Button labelPosition='left' icon='edit' primary onClick={createComment} content="Add comment"></Button>}
+            <ReactTextareaAutosize autoFocus onChange={handleSetText} value={text} className="commentTextarea" placeholder="Add a comment..." />
+            {loading ? <Button primary loading>Add comment</Button> : <Button labelPosition='left' icon='edit' primary onClick={createComment} content="Add comment"></Button>}
         </Container>
     );
 }

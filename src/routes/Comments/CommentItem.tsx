@@ -1,5 +1,6 @@
+import { formatDistance } from 'date-fns';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Comment, Icon } from 'semantic-ui-react';
+import { Button, Comment, Icon } from 'semantic-ui-react';
 import { IComment } from '../../DTO/Comment/IComment';
 import { IPublicUserInfo } from '../../DTO/User/IUser';
 import { userRepository } from '../../Repository/UserRepository/UserRepository';
@@ -26,13 +27,24 @@ export const CommentItem = ({ comment }: ICommentItemProps) => {
         <Comment.Content>
             <Comment.Author as='a'>{author?.username}</Comment.Author>
             <Comment.Metadata>
-                <div>{new Date(Number(comment.createdAt)).toString()}</div>
+                <div>{formatDistance(new Date(Number(comment.createdAt)), new Date(), { addSuffix: true })}</div>
             </Comment.Metadata>
             <Comment.Text>{comment?.text}</Comment.Text>
             <Comment.Actions>
+                <Comment.Action>
+                    <Icon name='thumbs up outline' />
+                    <span>1,000</span>
+                </Comment.Action>
+                <Comment.Action>
+                    <Icon name='thumbs down outline' />
+                    <span>1,000</span>
+                </Comment.Action>
                 <Comment.Action>Reply</Comment.Action>
                 <Comment.Action>Edit</Comment.Action>
                 <Comment.Action>Delete</Comment.Action>
+            </Comment.Actions>
+            <Comment.Actions style={{ padding: "10px" }}>
+                <a style={{ color: "#1678C2" }}><Icon name='angle up' />View 98 replies</a>
             </Comment.Actions>
         </Comment.Content>
     </Comment>)

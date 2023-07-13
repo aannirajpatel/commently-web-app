@@ -7,6 +7,7 @@ import { GoogleAuthProvider, getAuth, signOut, connectAuthEmulator } from "fireb
 import { getFunctions, connectFunctionsEmulator, httpsCallable, HttpsCallable } from "firebase/functions";
 import { ILinkPreviewInput } from "../DTO/FirebaseCloudFunctionInputs/ILinkPreviewInput";
 import { ISite } from "../DTO/Site/ISite";
+import { DEV, RECAPTCHA_PROVIDER } from "../shared/Constants";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,15 +32,16 @@ export const analytics = getAnalytics(app);
 export const db = getFirestore(app);
 export const auth = getAuth();
 
-if (process.env.NODE_ENV === 'development') {
-  (window as any).self.FIREBASE_APPCHECK_DEBUG_TOKEN = "3095729e-257e-4088-9a65-6399e3135600";
+if (DEV) {
+  //The Firebase AppCheck debug token is specified in the .env.local file and is not tracked by git
+  (window as any).self.FIREBASE_APPCHECK_DEBUG_TOKEN = process.env.FIREBASE_APPCHECK_DEBUG_TOKEN;
   connectFunctionsEmulator(functions, "localhost", 5001);
   connectFirestoreEmulator(db, 'localhost', 8080);
   connectAuthEmulator(auth, "http://localhost:9099");
 }
 
 initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6LcHB9UeAAAAANIL43h2hrmI8E4GRGhN-qiz_ljh'),
+  provider: new ReCaptchaV3Provider(RECAPTCHA_PROVIDER),
 
   // Optional argument. If true, the SDK automatically refreshes App Check
   // tokens as needed.
