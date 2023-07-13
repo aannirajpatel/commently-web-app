@@ -1,8 +1,10 @@
 import { collection, getDocs, query, where, setDoc, doc, getDoc } from 'firebase/firestore';
 import { signInWithPopup } from "firebase/auth";
 import { auth, gProvider, db } from "../../firebase/firebase";
-import { firebaseUserConverter } from '../../DTO/User/UserConverter';
-import { IUser } from '../../DTO/User/IUser';
+import { firebasePublicUserInfoConverter } from './UserConverter';
+import { IPublicUserInfo } from '../../DTO/User/IUser';
+import { firebasePrivateUserInfoConverter } from './PrivateUserConverter';
+import { IPrivateUserInfo } from '../../DTO/User/IUserPrivate';
 
 export async function signInWithGoogle() {
   try {
@@ -11,13 +13,16 @@ export async function signInWithGoogle() {
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      const ref = doc(db, "users", user.uid).withConverter(firebaseUserConverter);
-      await setDoc(ref, {
+      const publicDataRef = doc(db, "users", user.uid).withConverter(firebasePublicUserInfoConverter);
+      await setDoc(publicDataRef, {
         uid: user.uid as string,
         username: user.displayName as string,
+        photoUrl: user.photoURL as string
+      });
+      const privateDataRef = doc(db, "users", user.uid, "private", "info");
+      await setDoc(privateDataRef, {
         authProvider: "google",
         email: user.email as string,
-        photoUrl: user.photoURL as string
       });
     }
   } catch (err) {
@@ -26,9 +31,13 @@ export async function signInWithGoogle() {
 }
 
 class UserRepository {
-  public async getUser(uid: string): Promise<IUser> {
+  public async getPublicUserInfo(uid: string): Promise<IPublicUserInfo> {
     console.log("Getting user for uid:" + uid);
-    return (await (getDoc(doc(db, `users/${uid}`).withConverter(firebaseUserConverter)))).data()!
+    return (await (getDoc(doc(db, `users/${uid}`).withConverter(firebasePublicUserInfoConverter)))).data()!
+  }
+  public async getPrivateUserInfo(creatorUid: string): Promise<IPrivateUserInfo> {
+    console.log("Getting comment creator details for creatorUid:" + creatorUid);
+    return (await (getDoc(doc(db, `users/${creatorUid}`).withConverter(firebasePrivateUserInfoConverter)))).data()!
   }
 }
 

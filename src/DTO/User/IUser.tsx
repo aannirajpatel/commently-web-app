@@ -1,7 +1,5 @@
-export interface IUser {
+export interface IPublicUserInfo {
     uid: string;
     username: string;
-    authProvider: string;
-    email: string,
-    photoUrl: string
+    photoUrl: string;
 }

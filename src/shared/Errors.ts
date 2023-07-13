@@ -1,3 +1,4 @@
 export enum Errors {
-    AuthRequired = "AuthRequired"
+    AuthRequired = "AuthRequired",
+    Forbidden = "Forbidden"
 }

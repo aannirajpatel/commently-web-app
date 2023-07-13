@@ -4,7 +4,6 @@ export interface ISite {
     domain?: string | null;
     img?: string | null;
     favicon?: string | null;
-    clearbit?: string | null;
     canonicalUrl: string;
     firestoreSiteId: string;
 }

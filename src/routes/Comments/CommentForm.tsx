@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Button, Form, TextAreaProps } from "semantic-ui-react";
+import ReactTextareaAutosize from "react-textarea-autosize";
+import { Button, Container, Form, TextArea, TextAreaProps } from "semantic-ui-react";
 import { IComment } from "../../DTO/Comment/IComment";
 import { ISite } from "../../DTO/Site/ISite";
 import { auth } from "../../firebase/firebase";
@@ -20,7 +21,7 @@ export const CommentForm = ({ siteInfo, setComments }: ICommentFormProps) => {
         try {
             if (loading) return;
             setLoading(true);
-            const commentDraft: IComment = { creatorUid: user?.uid!, text: text, createdTimestamp: Date.now().toString() };
+            const commentDraft: IComment = { creatorUid: user?.uid!, text: text, createdAt: Date.now().toString() };
             const createdComment = await commentRepository.createComment(commentDraft, siteInfo, user);
             setComments((c: IComment[]) => { return [createdComment, ...c]; });
             setText("");
@@ -31,14 +32,14 @@ export const CommentForm = ({ siteInfo, setComments }: ICommentFormProps) => {
         }
     }, [siteInfo, setComments, text, user, loading]);
 
-    const handleSetText = (event: React.ChangeEvent<HTMLTextAreaElement>, data: TextAreaProps): void => {
+    const handleSetText = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
         setText(event.target.value);
     }
     return (
-        <Form reply onSubmit={e => e.preventDefault()}>
-            <Form.TextArea onChange={handleSetText} />
-            {loading && <Button labelPosition='left' icon='edit' primary loading>Add comment</Button>}
+        <Container fluid>
+            <ReactTextareaAutosize autoFocus onChange={handleSetText} style={{ width: "100%" }} />
+            {loading && <Button primary loading>Add comment</Button>}
             {!loading && <Button labelPosition='left' icon='edit' primary onClick={createComment} content="Add comment"></Button>}
-        </Form>
+        </Container>
     );
 }
