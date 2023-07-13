@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Home } from './routes/Home/Home';
 import { Settings } from './routes/Settings/Settings';
 import { Comments } from './routes/Comments/Comments';
+import { About } from './routes/About/About';
 
 function App() {
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
             <Route path={`/${Pages.Settings}`} element={<Settings />} />
             <Route path={`/${Pages.Logout}`} element={<Logout />} />
             <Route path={`/${Pages.Comments}`} element={<Comments />} />
+            <Route path={`/${Pages.About}`} element={<About />} />
           </Routes>
         </Container>
       </div>

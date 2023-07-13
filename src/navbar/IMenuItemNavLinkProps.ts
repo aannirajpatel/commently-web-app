@@ -8,5 +8,5 @@ export interface IMenuItemNavLinkProps {
     child?: JSX.Element;
     disableactive?: string;
     style?: any;
-    isDropdownItem?: boolean;
+    isdropdownitem?: string;
 }

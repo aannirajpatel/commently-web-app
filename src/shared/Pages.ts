@@ -3,5 +3,6 @@ export enum Pages {
   Settings = "settings",
   Home = "home",
   Logout = "logout",
-  Comments = "comments"
+  Comments = "comments",
+  About = "about"
 }
