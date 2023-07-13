@@ -1,6 +1,6 @@
 import { formatDistance } from 'date-fns';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Comment, Icon } from 'semantic-ui-react';
+import { Comment, Icon } from 'semantic-ui-react';
 import { IComment } from '../../DTO/Comment/IComment';
 import { IPublicUserInfo } from '../../DTO/User/IUser';
 import { userRepository } from '../../Repository/UserRepository/UserRepository';
@@ -44,7 +44,7 @@ export const CommentItem = ({ comment }: ICommentItemProps) => {
                 <Comment.Action>Delete</Comment.Action>
             </Comment.Actions>
             <Comment.Actions style={{ padding: "10px" }}>
-                <a style={{ color: "#1678C2" }}><Icon name='angle up' />View 98 replies</a>
+                <span style={{ color: "#1678C2" }}><Icon name='angle up' />View 98 replies</span>
             </Comment.Actions>
         </Comment.Content>
     </Comment>)
