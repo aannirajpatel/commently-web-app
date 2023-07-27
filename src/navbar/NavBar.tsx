@@ -18,12 +18,12 @@ export function NavBar() {
       <Menu secondary style={{ borderBottom: "1px solid rgb(238,239,239)" }} className="desktopMenu">
         <MenuItemNavLink to={`/${Pages.Home}`} pageid={Pages.Home} child={<img src={logo} alt="Commently Logo" />} disableactive={"true"} />
         <Menu.Item style={{ minWidth: "40%" }}>
-          <Form onSubmit={onSubmit}>
-          <FormInput
-            icon={<Icon name='search' link onClick={onSubmit} />}
-            placeholder={'Enter a URL to open its comments page (in future, we\'ll also support search)...'}
-            onChange={(_e, data) => setSearchState(data.value)}
-          />
+          <Form onSubmit={onSubmit} style={{ flexGrow: '1' }}>
+            <FormInput
+              icon={<Icon name='search' link onClick={onSubmit} />}
+              placeholder={'Enter a URL to open its comments page (in future, we\'ll also support search)...'}
+              onChange={(_e, data) => setSearchState(data.value)}
+            />
           </Form>
         </Menu.Item>
         {user && <Menu.Menu position="right">
