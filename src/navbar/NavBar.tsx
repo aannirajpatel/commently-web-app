@@ -1,5 +1,5 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Container, Dropdown, Icon, Image, Input, Menu } from 'semantic-ui-react';
+import { Container, Dropdown, Form, FormInput, Icon, Image, Input, Menu } from 'semantic-ui-react';
 import { Pages, getCommentsPagePath } from "../shared/Pages";
 import { auth } from "../firebase/firebase";
 import { MenuItemNavLink } from "./MenuItemNavLink";
@@ -11,16 +11,20 @@ export function NavBar() {
   const [user] = useAuthState(auth);
   const [searchState, setSearchState] = useState('');
   const navigateTo = useNavigate()
+
+  const onSubmit = () => { navigateTo(getCommentsPagePath(searchState)); setSearchState(''); };
   return (
     <>
       <Menu secondary style={{ borderBottom: "1px solid rgb(238,239,239)" }} className="desktopMenu">
         <MenuItemNavLink to={`/${Pages.Home}`} pageid={Pages.Home} child={<img src={logo} alt="Commently Logo" />} disableactive={"true"} />
         <Menu.Item style={{ minWidth: "40%" }}>
-          <Input
-            icon={<Icon name='search' link onClick={() => { navigateTo(getCommentsPagePath(searchState)); setSearchState(''); }} />}
+          <Form onSubmit={onSubmit}>
+          <FormInput
+            icon={<Icon name='search' link onClick={onSubmit} />}
             placeholder={'Enter a URL to open its comments page (in future, we\'ll also support search)...'}
             onChange={(_e, data) => setSearchState(data.value)}
           />
+          </Form>
         </Menu.Item>
         {user && <Menu.Menu position="right">
           <MenuItemNavLink to={`/${Pages.Settings}`} pageid={Pages.Settings} child={user.photoURL ? <Image avatar src={"" + user.photoURL} /> : <Icon name="setting" />} />

@@ -24,6 +24,14 @@ const defaultFeed: IPage[] = [
         "title": "YouTube"
       },
       {
+        "canonicalUrl": "https://www.cnn.com/2023/07/25/us/pittsburgh-power-substation-fire-brunot-island/index.html",
+        "description": "A large blaze erupted at a power substation in Pittsburgh after a reactor “catastrophically failed,” public safety officials announced.",
+        "favicon": "https://logo.clearbit.com/cnn.com",
+        "img": "https://media.cnn.com/api/v1/images/stellar/prod/230725082026-01-pittsburgh-brunot-island-fire-grab.jpg?c=16x9&q=w_800,c_fill",
+        "pageId": "6af40efd28e5988c4f4c4cf3304ec1e5b8bc4735dc546a1d5ade799708cd0a9c",
+        "title": "‘Catastrophic’ reactor failure ignites large blaze at Pittsburgh power substation, officials say | CNN"
+      },
+      {
         "img": "https://media.licdn.com/dms/image/D4D05AQGP3s9Ys0_GPA/videocover-high/0/1690336971451?e=2147483647&v=beta&t=nu-RGFMz_b9S6dxiMD1FkqgV-u3Iof5-YnMjDKG51pU",
         "favicon": "https://logo.clearbit.com/linkedin.com",
         "canonicalUrl": "https://www.linkedin.com/posts/nandi-bishal_robots-roboticautomation-artificialintelligence-activity-7089787169900232704-NAhY",
@@ -32,7 +40,14 @@ const defaultFeed: IPage[] = [
         "title": "Bishal Nandi ↗️ on LinkedIn: #robots #roboticautomation #artificialintelligence | 65 comments",
         "pageId": "9b68c3f497feaddb9416bc64c51ea59fefa17c6b9f9121138fab5f708c192c57"
       },
-      
+      {
+        "canonicalUrl": "https://www.aanpatel.tech/",
+        "description": "I am Aan Patel. Software Engineer, Developer Community Leader, Tech Enthusiast. I enjoy building impactful tech products. Areas of interest: App Development, IoT, Computer Vision, Robotics, & Tech Education.",
+        "domain": "aanpatel.tech",
+        "img": "https://www.aanpatel.tech/res/nav-logo.png",
+        "pageId": "0b3cacea0e14ab373349fa12370e7b51b4de4511cdfe8f742d0dad6b1f6eb8ba",
+        "title": "Aan Patel: Software Engineer, Developer Community Leader, Tech Enthusiast"
+      },
 ];
 
 export function Home() {
@@ -66,7 +81,6 @@ export function Home() {
             </Label>
             <Button size="mini">+ Add sites to follow (coming soon)</Button>
             <br />
-            <a href={window.origin+"/#/comments?site=https://www.reddit.com"}>Click here to see the demo for the comments page to a webpage</a>
             <br/>
             <Feed feedItems={feedItems} />
         </Container>
