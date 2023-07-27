@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Container, Grid, Header, Loader } from "semantic-ui-react";
 import { IComment } from "../../DTO/Comment/IComment";
-import { ISite } from "../../DTO/Site/ISite";
+import { IPage } from "../../DTO/Page/IPage";
 import { commentRepository } from "../../Repository/CommentRepository/CommentRepository";
 import { siteRepository } from "../../Repository/SiteRepository/SiteRepository";
 import { toTitleCase } from "../../shared/StringHelpers";
@@ -17,7 +17,7 @@ export function Comments() {
         return searchParams.get('site');
     }, [searchParams]);
     const [comments, setComments]: [IComment[], any] = useState([]);
-    const [siteInfo, setSiteInfo]: [ISite | undefined, any] = useState();
+    const [siteInfo, setSiteInfo]: [IPage | undefined, any] = useState();
     const [loading, setLoading]: [boolean, any] = useState(true);
     const [errorLoading, setErrorLoading]: [boolean, any] = useState(false);
 
@@ -26,7 +26,7 @@ export function Comments() {
         try {
             setErrorLoading(() => false);
             setLoading(true);
-            const site: ISite = (await siteRepository.getSite(siteUrl)) || { canonicalUrl: siteUrl };
+            const site: IPage = (await siteRepository.getSite(siteUrl)) || { canonicalUrl: siteUrl };
             const commentData = await commentRepository.getComments(site);
             setSiteInfo(site);
             setComments(commentData);
@@ -50,7 +50,7 @@ export function Comments() {
                 {!errorLoading && toTitleCase(siteInfo?.title || siteInfo?.canonicalUrl || siteUrl || "Please provide a site url...")}
             </Header>
             {SiteDescriptionIfExists(siteInfo)}
-            {errorLoading ? ThereWasAnError() : CommentsList(siteInfo, setComments, comments)}
+            {errorLoading ? <ThereWasAnError/> : <CommentsList {...{siteInfo, setComments, comments}}/>}
         </Container>);
 
     const siteLoader = (

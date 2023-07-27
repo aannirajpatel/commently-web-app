@@ -1,9 +1,10 @@
-export interface ISite {
+export interface IPage {
     title?: string | null;
     description?: string | null;
     domain?: string | null;
+    clearbit?: string | null;
     img?: string | null;
     favicon?: string | null;
     canonicalUrl: string;
-    firestoreSiteId: string;
+    pageId: string;
 }

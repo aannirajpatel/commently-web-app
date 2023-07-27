@@ -4,5 +4,9 @@ export enum Pages {
   Home = "home",
   Logout = "logout",
   Comments = "comments",
-  About = "about"
+  About = "about",
+}
+
+export function getCommentsPagePath(searchState: string) {
+  return `/comments?site=${encodeURIComponent(searchState)}`;
 }

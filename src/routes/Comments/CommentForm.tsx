@@ -3,12 +3,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { Button, Container } from "semantic-ui-react";
 import { IComment } from "../../DTO/Comment/IComment";
-import { ISite } from "../../DTO/Site/ISite";
+import { IPage } from "../../DTO/Page/IPage";
 import { auth } from "../../firebase/firebase";
 import { commentRepository } from "../../Repository/CommentRepository/CommentRepository";
+import { toast } from "react-toastify";
 
 export interface ICommentFormProps {
-    siteInfo: ISite;
+    siteInfo: IPage;
     setComments: any;
 };
 
@@ -17,7 +18,10 @@ export const CommentForm = ({ siteInfo, setComments }: ICommentFormProps) => {
     const [text, setText]: [string, any] = useState("");
     const [loading, setLoading] = useState(false);
     const createComment = useCallback(async () => {
-        if (!user || !siteInfo) return;
+        if (!user || !siteInfo) {
+            toast(<>You must be logged in to be able to comment</>);
+            return;
+        }
         try {
             if (loading) return;
             setLoading(true);

@@ -1,21 +1,25 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Container, Dropdown, Icon, Image, Input, Menu } from 'semantic-ui-react';
-import { Pages } from "../shared/Pages";
+import { Pages, getCommentsPagePath } from "../shared/Pages";
 import { auth } from "../firebase/firebase";
 import { MenuItemNavLink } from "./MenuItemNavLink";
 import 'react-toastify/dist/ReactToastify.css';
 import { default as logo } from '../res/img/logo.png';
+import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
 export function NavBar() {
   const [user] = useAuthState(auth);
+  const [searchState, setSearchState] = useState('');
+  const navigateTo = useNavigate()
   return (
     <>
       <Menu secondary style={{ borderBottom: "1px solid rgb(238,239,239)" }} className="desktopMenu">
         <MenuItemNavLink to={`/${Pages.Home}`} pageid={Pages.Home} child={<img src={logo} alt="Commently Logo" />} disableactive={"true"} />
         <Menu.Item style={{ minWidth: "40%" }}>
           <Input
-            icon={<Icon name='search' link />}
-            placeholder='Search...'
-            onChange={(e) => console.log(e)}
+            icon={<Icon name='search' link onClick={() => { navigateTo(getCommentsPagePath(searchState)); setSearchState(''); }} />}
+            placeholder={'Enter a URL to open its comments page (in future, we\'ll also support search)...'}
+            onChange={(_e, data) => setSearchState(data.value)}
           />
         </Menu.Item>
         {user && <Menu.Menu position="right">

@@ -1,7 +1,7 @@
 import { getSite } from '../../firebase/firebase';
-import { ISite } from '../../DTO/Site/ISite';
+import { IPage } from '../../DTO/Page/IPage';
 class SiteRepository {
-    public async getSite(siteUrl: string): Promise<ISite> {
+    public async getSite(siteUrl: string): Promise<IPage> {
         return (await getSite({ siteUrl: siteUrl })).data;
     }
 };

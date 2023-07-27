@@ -1,11 +1,11 @@
 import React from "react";
 import { Comment } from "semantic-ui-react";
 import { IComment } from "../../DTO/Comment/IComment";
-import { ISite } from "../../DTO/Site/ISite";
+import { IPage } from "../../DTO/Page/IPage";
 import { CommentItem } from "./CommentItem";
 import { CommentForm } from "./CommentForm";
 
-export function CommentsList(siteInfo: ISite | undefined, setComments: any, comments: IComment[]): React.ReactNode {
+export function CommentsList({siteInfo, setComments, comments}: {siteInfo: IPage | undefined, setComments: any, comments: IComment[]}){
     return <>
         {siteInfo && <CommentForm siteInfo={siteInfo} setComments={setComments} />}
         <Comment.Group>

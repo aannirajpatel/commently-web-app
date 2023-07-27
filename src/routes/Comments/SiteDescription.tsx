@@ -1,6 +1,6 @@
 import React from "react";
-import { ISite } from "../../DTO/Site/ISite";
+import { IPage } from "../../DTO/Page/IPage";
 
-export function SiteDescription(siteInfo: ISite | undefined): React.ReactNode {
+export function SiteDescription(siteInfo: IPage | undefined): React.ReactNode {
     return siteInfo?.description && <p>{siteInfo.description}</p>;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Header, Segment } from "semantic-ui-react";
 import { ReactComponent as WarningLogo } from "../../res/img/warning.svg";
 
-export function ThereWasAnError(): React.ReactNode {
+export function ThereWasAnError() {
     return <>
         <Grid centered>
             <Grid.Row columns={1}>
