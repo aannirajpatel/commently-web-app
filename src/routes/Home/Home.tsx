@@ -1,10 +1,9 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Header, Label } from "semantic-ui-react";
+import { IPage } from "../../DTO/Page/IPage";
 import { getCommentsPagePath } from "../../shared/Pages";
 import Feed from "./components/Feed";
-import { IPage } from "../../DTO/Page/IPage";
-import { useEffect, useState } from "react";
-import { pageRepository } from "../../Repository/PageRepository/PageRepository";
 
 const defaultFeed: IPage[] = [
     {
@@ -38,15 +37,15 @@ const defaultFeed: IPage[] = [
 
 export function Home() {
     const navigateTo = useNavigate();
-    const [feedItems, setFeedItems] = useState(defaultFeed);
-    useEffect(() => {
-        const fetchPages = async () => {
-            const pages = await pageRepository.getAllPages();
-            setFeedItems(pages);
-        };
+    const [feedItems,] = useState(defaultFeed);
+    // useEffect(() => {
+    //     const fetchPages = async () => {
+    //         const pages = await pageRepository.getAllPages();
+    //         setFeedItems(pages);
+    //     };
 
-        fetchPages();
-    }, []);
+    //     fetchPages();
+    // }, []);
     return (<>
         <Container fluid textAlign="center">
             <Header as="h2">Home</Header>
